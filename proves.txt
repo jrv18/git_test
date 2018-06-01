@@ -2,4 +2,7 @@ Autor:    Josep R. Vizcarro
 Objectiu: Familiaritzar-se amb treballar amb GIT
 Enunciat: https://docs.google.com/document/d/191OUw7rK_X8zAapPJeA9HSk8yHAH17k81W05TiDZP48/edit
 
-Punt 6: Fes una modificació al fitxer i torna a pujar-lo al repositori Github
+1) Primer projecte GIT > Punt 6: Fes una modificació al fitxer i torna a pujar-lo al repositori Github
+2) Branques > Modificar el fitxer, i de nou fes commit i push.
+   Havent creat la branca "branch1" es modifica aquest arxiu i a continuació es farà el COMMIT i després el PUSH.
+
