@@ -8,4 +8,4 @@ Exercicis ITAcademy Back-End Java Developer
  
 02 Exercici: Modelatge Base de Dades
  - Enunciat:   https://docs.google.com/document/d/1WBdT33HaIUUOFCd2FscGYxq3MQq4mRmMzFCwA-g5zyA/edit
- - Entregable:  
+ - Entregable: 02 Modelatge BBDD - Entregable.pdf 
