@@ -8,5 +8,9 @@ Exercicis ITAcademy Back-End Java Developer
 02 Exercici: Modelatge Base de Dades
  - Enunciat:   https://docs.google.com/document/d/1WBdT33HaIUUOFCd2FscGYxq3MQq4mRmMzFCwA-g5zyA/edit
  - Entregable: 02 itacademy_bbdd_Josep_R_Vizcarro.pdf
+   URL GitHub: https://github.com/jrv18/git_test/blob/master/02%20itacademy_bbdd_Josep_R_Vizcarro.pdf
+   Nota: És possible que no pugueu obrir l'arxiu que pesa 4.31 MB.
+         A mí em mostra l'avís: Sorry, something went wrong. Reload?
+         Però, he verificat que si premeu el botó "Download", que està per sobre i a la dreta de l'avís, llavors el descarrega al vostre equip i sí que el podeu obrir-lo.
  
  ================   PENDENT   ================
