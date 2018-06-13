@@ -18,5 +18,7 @@ Exercicis ITAcademy Back-End Java Developer
  - Entregable: 03_2_usairlineflights_Queries.sql
    Explicació: 03_1_itacademy_Workbench_SQL_Queries_Josep_R_Vizcarro.pdf
    URL GitHub: 
+   ARXIU DE LES CONSULTES:     https://github.com/jrv18/git_test/blob/master/03_2_usairlineflights_Queries.sql
+   RESULTATS DE LES CONSULTES: https://github.com/jrv18/git_test/blob/master/03_1_itacademy_Workbench_SQL_Queries_Josep_R_Vizcarro.pdf
 
  ================   PENDENT   ================
