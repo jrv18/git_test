@@ -57,6 +57,7 @@ USE `usairlineflights`;
 =======================================================================================*/
 SELECT COUNT(*) FROM usairlineflights.flights; # 1777
 
+
 /* Consulta 2 ● Retard promig (Mitjana del retard) de sortida i arribada segons l’aeroport origen.
  =======================================================================================
  Table: flights
@@ -83,24 +84,26 @@ AVG(ArrDelay),AVG(DepDelay),Origin
 # Interpretació 1: L'aeroport d'origen queda qualificat pel seu codi IATA.
 USE `usairlineflights`;
 SELECT 
+    f.Origin,
     AVG(f.DepDelay) AS 'Departure average delay',
-    AVG(f.ArrDelay) AS 'Arrival average delay',
-    f.Origin
+    AVG(f.ArrDelay) AS 'Arrival average delay'
 FROM
     flights As f
 GROUP BY f.Origin;
 
+
 # Interpretació 2: L'aeroport d'origen s'explicita amb el seu nom, no amb el seu codi IATA.
 SELECT 
+    ua.Airport AS 'Airport',
     AVG(f.DepDelay) AS 'Departure average delay',
-    AVG(f.ArrDelay) AS 'Arrival average delay',
-        ua.Airport AS 'Airport'
+    AVG(f.ArrDelay) AS 'Arrival average delay'
 FROM
     flights As f
 		INNER JOIN  
     usairports AS ua ON f.Origin = ua.IATA
 GROUP BY f.Origin
 ORDER BY ua.Airport ASC;
+
 
 /* Consulta  3 ● Mitjana del retard d’arribada dels vols, per mesos i segons l’aeroport origen.
 =======================================================================================
@@ -129,8 +132,8 @@ SELECT
     AVG(ArrDelay) AS 'Average delay'
 FROM
     flights
-GROUP BY Origin
-ORDER BY colYear ASC , colMonth DESC;
+GROUP BY Origin, colYear , colMonth 
+ORDER BY colYear ASC, colMonth DESC;
 
 
 /* Consulta 4 ● Mitjana del retard d’arribada dels vols, per mesos i segons l’aeroport origen. 
@@ -165,6 +168,7 @@ FROM
 GROUP BY ua.City
 ORDER BY ua.City;
 
+
 #La consulta feta a la inversa
 SELECT 
     ua.City AS 'City',
@@ -198,7 +202,7 @@ USE `usairlineflights`;
 SELECT 
     c.CarrierCode AS 'Carrier code',
     c.Description AS 'Carrier description',
-    SUM(f.Cancelled) AS 'Cancellations'
+    COUNT(f.Cancelled) AS 'Cancellations' # Correcció Usar COUNT(camp) en lloc de SUM(camp).
 FROM
     carriers AS c
         INNER JOIN
@@ -207,6 +211,7 @@ WHERE
     f.Cancelled = '1'
 GROUP BY f.UniqueCarrier
 ORDER BY SUM(f.Cancelled) DESC; 
+
 
 /* Consulta 6 ●	Companyies amb la seva mitjana només d’aquelles les quals els seus vols arriben al seu destí amb un retràs major de 10 minuts.
 ========================================================================================
@@ -221,24 +226,9 @@ CAS DEMANAT:
 
 SELECT AVG(f.ArrDelay) AS 'Arrival delay', f.UniqueCarrier As 'Carrier' FROM flights AS f WHERE f.ArrDelay > 10 GROUP BY f.UniqueCarrier;
 
-Incloc una consulta addicional que no es demana en què es te en compte tot l'espai mmostral.
-En aquest cas en tenir en compte tots els retards, que inclouen les mostres sense retards, s'emmascara el resultat.
-Ja que les companyies que s'anticipen en l'arrivada poden compensar els retards.
-CONCLUSIÓ:
-És un exemple clar de que quan es vol mesurar un paràmetre convé teneir clar que és important definir quin conjunt de dades cal
-considerar per poder obtenir-lo. 
-======================================================================================== */
+Incloc una consulta addicional que no es demana en què es té en compte només una part de l'espai mostral.
+====================================================== */
 USE `usairlineflights`;
-# Interpreto que només cal considerar els retards que superen els 10 minuts i mostrar la mitjana per cada companyia.
-SELECT 
-	c.Description AS 'Carrier description', 
-	AVG(f.ArrDelay) AS 'Arrival delay'
-FROM flights AS f INNER JOIN carriers as c ON f.UniqueCarrier = c.CarrierCode
-WHERE f.ArrDelay > 10 
-GROUP BY f.UniqueCarrier
-ORDER BY c.Description ASC;
-
-# Interpretació diferent. Només la incloc com a ampliació de l'exercici.
 # Considerar tots els retards i mostrar només les companyies amb una mitjana de retard que superi els 10 minuts.
 USE `usairlineflights`;
 SELECT 
@@ -248,6 +238,16 @@ FROM flights AS f INNER JOIN carriers as c ON f.UniqueCarrier = c.CarrierCode
 GROUP BY f.UniqueCarrier HAVING AVG(f.ArrDelay) > 10
 ORDER BY c.Description ASC;
 
+# Interpretació diferent. Només la incloc com a ampliació de l'exercici.
+# Interpreto que només cal considerar els retards que superen els 10 minuts i mostrar la mitjana per cada companyia.
+SELECT 
+	c.Description AS 'Carrier description', 
+	AVG(f.ArrDelay) AS 'Arrival delay'
+FROM flights AS f INNER JOIN carriers as c ON f.UniqueCarrier = c.CarrierCode
+WHERE f.ArrDelay > 10 
+GROUP BY f.UniqueCarrier
+ORDER BY c.Description ASC;
+
 
 /* Consulta 7 ● L’identificador dels 10 avions que més kilòmetres han recorregut fent vols comercials:
  ========================================================================================
@@ -255,14 +255,42 @@ ORDER BY c.Description ASC;
  Fields:
  10 	FlightNum 	flight number
  11 	TailNum 	plane tail number
-======================================================================================== */
+ 
+ Source: https://dev.mysql.com/doc/refman/8.0/en/problems-with-alias.html
+
+B.5.4.4 Problems with Column Aliases
+An alias can be used in a query select list to give a column a different name.
+You can use the alias in GROUP BY, ORDER BY, or HAVING clauses to refer to the column: 
+
+Standard SQL disallows references to column aliases in a WHERE clause.
+This restriction is imposed because when the WHERE clause is evaluated, the column value may not yet have been determined.
+For example, the following query is illegal: 
+	SELECT id, COUNT(*) AS cnt FROM tbl_name WHERE cnt > 0 GROUP BY id;
+
+The WHERE clause determines which rows should be included in the GROUP BY clause, 
+but it refers to the alias of a column value that is not known until after the rows have been selected, and grouped by the GROUP BY.
+
+In the select list of a query, a quoted column alias can be specified using identifier or string quoting characters:
+	identifier quoting:			`one`
+	string quoting characters:	'two'
+
+	SELECT 1 AS `one`, 2 AS 'two';
+    
+Elsewhere in the statement, quoted references to the alias must use identifier quoting 
+or the reference is treated as a string literal. 
+For example, this statement groups by the values in column id, referenced using the alias `a`:
+
+	SELECT id AS 'a', COUNT(*) AS cnt FROM tbl_name GROUP BY `a`;
+
+ But this statement groups by the literal string 'a' and will not work as expected:
+
+	SELECT id AS 'a', COUNT(*) AS cnt FROM tbl_name   GROUP BY 'a';
+ ======================================================================================== */
 USE `usairlineflights`;
 SELECT 
-	TailNum AS 'Tail identifier', 
-	SUM(Distance) AS 'Total Distance [Miles]' 
+	TailNum AS `Tail identifier`, 
+	SUM(Distance) AS `Total Distance [Miles]` 
 FROM usairlineflights.flights 
 GROUP BY TailNum 
-ORDER BY SUM(Distance) DESC
+ORDER BY `Total Distance [Miles]` DESC # Es pot usar l'àlias 
 LIMIT 10;
-
-
