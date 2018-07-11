@@ -26,7 +26,7 @@ Exercicis ITAcademy Back-End Java Developer
 
 04 Exercise: Java
 04.01 Java exercise (eclipse) 01_RocketsPhase3
- - Statement:  https://docs.google.com/document/d/1_kseBgrLFR8zJRckFOQoy4csA1GJ90jkTlwyaySxthQ/edit
- - Entregable:  
+ - Statement:   https://docs.google.com/document/d/1_kseBgrLFR8zJRckFOQoy4csA1GJ90jkTlwyaySxthQ/edit
+ - Deliverable: 04_Java/01_RocketsPhase3 
 
  ================   PENDENT   ================
