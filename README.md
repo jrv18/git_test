@@ -13,7 +13,7 @@ Exercicis ITAcademy Back-End Java Developer
          A mí em mostra l'avís: Sorry, something went wrong. Reload?
          Però, he verificat que si premeu el botó "Download", que està per sobre i a la dreta de l'avís, llavors el descarrega al vostre equip i sí que el podeu obrir-lo.
  
- 03 Exercici: Workbench
+03 Exercici: Workbench
  - Enunciat:   https://drive.google.com/file/d/1rh-PD3piYDgLnhwhm-ZOKHw-yLmHnZxD/view?usp=sharing
  - Entregable: 03_2_usairlineflights_Queries.sql
  
@@ -23,5 +23,10 @@ Exercicis ITAcademy Back-End Java Developer
    ARXIU DE LES CONSULTES:     https://github.com/jrv18/git_test/blob/master/03_2_usairlineflights_Queries.sql
    
    RESULTATS DE LES CONSULTES: https://github.com/jrv18/git_test/blob/master/03_1_itacademy_Workbench_SQL_Queries_Josep_R_Vizcarro.pdf
+
+04 Exercise: Java
+04.01 Java exercise (eclipse) 01_RocketsPhase3
+ - Statement:  https://docs.google.com/document/d/1_kseBgrLFR8zJRckFOQoy4csA1GJ90jkTlwyaySxthQ/edit
+ - Entregable:  
 
  ================   PENDENT   ================
